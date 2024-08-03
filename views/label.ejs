@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindPad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+</head>
+<body class="p-5">
+    <div class="header flex justify-between">
+        <h1 class="text-[30px] ">Notes</h1>
+        <a href="/users/logout" class="text-red-600 text-lg">logout</a>
+    </div>
+    
+    <div class="main w-[100%] flex gap-5 ">
+        <div class="w-[30%] h-[38rem] border border-2 p-5 overflow-scroll">
+            <a href="/notes" class="text-blue-600"><- go back</a>
+            <form action="">
+                <input type="text" placeholder="Search by labels"
+                    class="p-2 w-[75%] border border-2 border-black rounded-lg">
+                <input type="submit" value="submit" class="bg-blue-500 px-3 py-2 rounded-lg text-white">
+            </form>
+            <div class="notes mt-5">
+                <% if(tagExists){ %>
+                    <% notes.forEach((note)=>{%>
+                    <div class="note border-2 border-black px-3 rounded-xl py-2 mt-3 overflow-hidden">
+                        <a href="/notes/<%= note._id %>" class="text-[25px] "><%= note.title %></a>
+                        <div class="tags mt-2 flex gap-2 ">
+                            <% note.tags.forEach((tag)=>{%>
+                                <p class="tag text-center bg-gray-300 p-2 rounded-2xl"><%= tag %></p>
+                            <%}) %>
+                            
+                        </div>
+                        <div class="icons flex justify-between mt-2">
+                            <a href="delete/<%=note._id%>"><i class="material-icons text-red-600">delete</i></a>
+                            
+                        </div>                      
+                    </div>
+                    <%}) %>
+                <%}else{%>
+                    <p>No notes found with the specified tag</p>
+                <%} %>  
+
+                
+            </div>
+        </div>
+        <div class="write w-[70%] border border-2 p-10 ">
+            <form action="/notes" method="post">
+                <input type="text" required placeholder="Title goes here..." name="title"
+                    class="w-[100%] border-gray-400 border-2 p-2 " >
+                <textarea style="resize: none;" required name="content" placeholder="Write your note here."
+                    class="p-3 border-gray-400 border-2" cols="124" rows="10"></textarea>
+                <input type="text" placeholder="Add Tags... (use , to separate)" name="tags"
+                    class="w-[100%] border-gray-400 border-2 p-2 ">
+                <input type="submit" value="Create" class="cursor-pointer bg-blue-500 px-3 py-2 mt-3 rounded-lg text-white">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
