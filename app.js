@@ -9,7 +9,7 @@ const usersRouter = require("./routes/usersRouter.js")
 const indexRouter = require("./routes/indexRouter.js")
 const notesRouter = require("./routes/notesRouter.js")
 app.set("view engine","ejs")
-
+app.set('views', path.join(__dirname, 'views'));
 mongoose.connect(process.env.MONGO_URL)
 .then(()=>{
     console.log("connected");
